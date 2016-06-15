@@ -86,7 +86,7 @@ array(6) { ["Headers"]=> array(9)
 	require_once('mime_parser.php');
 	$EmailInfo=array('Body'=>array(), 'from'=>array(), 'to'=>array(), 'subject'=>array(), 'date'=>array());
 	//assign eml file which you want to open
-	$message_file=((IsSet($_SERVER['argv']) && count($_SERVER['argv'])>1) ? $_SERVER['argv'][1] : 'AMAZON_SES_SETUP_NOTIFICATION.eml');
+	$message_file=((IsSet($_SERVER['argv']) && count($_SERVER['argv'])>1) ? $_SERVER['argv'][1] : 'attachment.eml');
 	$mime=new mime_parser_class;
 	
 	/*
