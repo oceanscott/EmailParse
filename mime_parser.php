@@ -313,7 +313,7 @@ class mime_parser_class
 	</variable>
 {/metadocument}
 */
-	var $use_part_file_names = 0;
+	var $use_part_file_names = 1;
 
 /*
 {metadocument}
@@ -1515,6 +1515,8 @@ class mime_parser_class
 					switch($type)
 					{
 						case 'BodyData':
+						//echo "++----------------------------------------------------------------\n";
+						//echo $filename;
 							if(IsSet($parameters['SaveBody']))
 							{
 								if(!IsSet($decoded['BodyFile']))
@@ -1522,9 +1524,13 @@ class mime_parser_class
 									$directory_separator=(defined('DIRECTORY_SEPARATOR') ? DIRECTORY_SEPARATOR : '/');
 									$path = (strlen($parameters['SaveBody']) ? ($parameters['SaveBody'].(strcmp($parameters['SaveBody'][strlen($parameters['SaveBody'])-1], $directory_separator) ? $directory_separator : '')) : '');
 									$filename =	strval($this->body_part_number);
+									//echo "==================================================================";
+									echo $filename;
 									if($this->use_part_file_names
 									&& !$this->GetPartFileName($decoded, $filename))
 										return(0);
+									//echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+									echo $filename;
 									if(file_exists($path.$filename))
 									{
 										if(GetType($dot = strrpos($filename, '.'))=='integer')
@@ -1556,6 +1562,7 @@ class mime_parser_class
 								if(strlen($part['Data'])
 								&& !fwrite($this->body_file, $part['Data']))
 								{
+									//echo "============write======================================	";
 									$this->SetPHPError('could not save the message body part to file '.$decoded['BodyFile'], $php_errormsg);
 									fclose($this->body_file);
 									@unlink($decoded['BodyFile']);
@@ -1565,6 +1572,7 @@ class mime_parser_class
 							elseif(IsSet($parameters['SkipBody'])
 							&& $parameters['SkipBody'])
 							{
+								//echo "==================================================================";
 								if(!IsSet($decoded['BodyPart']))
 								{
 									$decoded['BodyPart'] = $this->body_part_number;
@@ -1574,6 +1582,7 @@ class mime_parser_class
 							}
 							else
 							{
+								//echo "==================================================================";
 								if(IsSet($decoded['Body']))
 									$decoded['Body'].=$part['Data'];
 								else
@@ -1620,6 +1629,9 @@ class mime_parser_class
 	{
 		if(IsSet($decoded['FileName']))
 			$filename = basename($decoded['FileName']);
+
+		//echo "++++++++++++--------------------------------";
+		echo $filename;
 		return(1);
 	}
 
