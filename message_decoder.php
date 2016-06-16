@@ -10,7 +10,7 @@ header ('Content-type:text/html charset=UTF-8');
  */
 class message_decoder
 {		
-	function getEmailInfo(&$EmailInfo)
+	function getEmailInfo(&$EmailInfo, $EmailPath)
 	{
 		$EmailInfo=array('Body'=>array(), 'from'=>array(), 'to'=>array(), 'subject'=>array(), 'date'=>array());
 		require_once('rfc822_addresses.php');
@@ -18,7 +18,7 @@ class message_decoder
 		$mime=new mime_parser_class;
 
 		//assign eml file which you want to open
-		$message_file=((IsSet($_SERVER['argv']) && count($_SERVER['argv'])>1) ? $_SERVER['argv'][1] : 'attachment.eml');
+		$message_file=((IsSet($_SERVER['argv']) && count($_SERVER['argv'])>1) ? $_SERVER['argv'][1] : $EmailPath);
 		
 		
 		/*
