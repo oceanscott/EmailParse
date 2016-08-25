@@ -13,8 +13,8 @@ class message_decoder
 	function getEmailInfo(&$EmailInfo, $EmailPath)
 	{
 		$EmailInfo=array('Body'=>array(), 'from'=>array(), 'to'=>array(), 'subject'=>array(), 'date'=>array());
-		require_once('rfc822_addresses.php');
-		require_once('mime_parser.php');
+		require_once('./emailparsing/rfc822_addresses.php');
+		require_once('./emailparsing/mime_parser.php');
 		$mime=new mime_parser_class;
 
 		//assign eml file which you want to open
